@@ -13,5 +13,12 @@ class HangmanTest {
     @DisplayName("Tests that the game word is being pulled correctly")
     @Test
     void getGameWord() {
+        game.getWords();
+        int i = 0;
+        while (i < 100) {
+            assertTrue(game.words.contains(game.getGameWord()));
+            i++;
+        }
+
     }
 }

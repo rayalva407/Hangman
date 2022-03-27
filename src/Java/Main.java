@@ -1,11 +1,18 @@
 public class Main {
 
     public static void main(String[] args) {
-        Hangman game1 = new Hangman();
+        Hangman game = new Hangman();
 
-        game1.getWords();
-        game1.welcomeScreen();
+        game.getWords();
+        game.welcomeScreen();
+        game.getGameWord();
 
-        System.out.println(game1.getGameWord());
+        while(game.playing) {
+            game.updateSecretWord(game.secretWord);
+            System.out.println(game.secretWord);
+            game.makeGuess();
+            game.updateSecretWord(game.secretWord);
+        }
+
     }
 }
