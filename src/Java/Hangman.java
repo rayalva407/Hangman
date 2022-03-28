@@ -83,7 +83,7 @@ public class Hangman {
         }
     }
 
-    //Prints all of the letters that were incorrect/missed
+    //Prints all the letters that were incorrect/missed
     public void printMissedLetters() {
         System.out.print("Missed Letters: ");
         for (char c : missedLetters) {
@@ -127,7 +127,7 @@ public class Hangman {
         }
     }
 
-    //Counts all of the correct guesses and gives the winning or losing screen depending on the condition.
+    //Counts all the correct guesses and gives the winning or losing screen depending on the condition.
     public void checkWin() {
         int correctCount = 0;
 
@@ -163,6 +163,7 @@ public class Hangman {
         }
     }
 
+    //Sets everything back to starting values for a new game
     public void clearHangman() {
         getGameWord();
         missedLetters.clear();
