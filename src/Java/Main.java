@@ -6,12 +6,12 @@ public class Main {
         game.getWords();
         game.welcomeScreen();
         game.getGameWord();
-
+        System.out.println(game.secretWord);
         while(game.playing) {
-            game.updateSecretWord(game.secretWord);
-            System.out.println(game.secretWord);
+            game.updateSecretWord();
             game.makeGuess();
-            game.updateSecretWord(game.secretWord);
+            game.checkWin();
+            System.out.println(game.secretWord);
         }
 
     }

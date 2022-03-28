@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -9,11 +10,13 @@ public class Hangman {
     Scanner scanner;
     Scanner input = new Scanner(System.in);
     ArrayList<String> words = new ArrayList<>();
-    ArrayList<Character> playerGuesses = new ArrayList<>();
+    HashSet<Character> playerGuesses = new HashSet<>();
+    HashSet<Character> missedLetters = new HashSet<>();
     Random rand = new Random();
     boolean playing = true;
     String secretWord;
-    String guess;
+    String playAgain;
+
 
     //This method gets the words from the words_alpha.txt and adds them to words array list
     public void getWords() {
@@ -45,11 +48,20 @@ public class Hangman {
 
     }
 
+    public void printMissedLetters() {
+        System.out.print("Missed Letters: ");
+        for (char c : missedLetters) {
+            System.out.print(c + " ");
+        }
+        System.out.println();
+    }
+
     //Updates the word with user's guesses
-    public void updateSecretWord(String word) {
-        for(int i =0; i < word.length(); i++) {
-            if (playerGuesses.contains(word.charAt(i))) {
-                System.out.print(word.charAt(i));
+    public void updateSecretWord() {
+
+        for(int i =0; i < secretWord.length(); i++) {
+            if (playerGuesses.contains(secretWord.charAt(i))) {
+                System.out.print(secretWord.charAt(i));
             }
             else {
                 System.out.print("_");
@@ -62,11 +74,42 @@ public class Hangman {
         System.out.println("Guess a Letter Please");
         try {
             String guess = input.nextLine();
+            if (playerGuesses.contains(guess.charAt(0))) {
+                System.out.println("You have already guessed this letter try again.");
+                makeGuess();
+            }
+            if (!secretWord.contains(Character.toString(guess.charAt(0)))) {
+                missedLetters.add(guess.charAt(0));
+            }
             playerGuesses.add(guess.charAt(0));
         } catch (Exception e) {
             System.out.println("Wrong input! Make sure to input one letter");
         }
     }
+
+    public void checkWin() {
+        int correctCount = 0;
+
+        for (int i =0; i < secretWord.length(); i++) {
+            if (playerGuesses.contains(secretWord.charAt(i))) {
+                correctCount++;
+            }
+        }
+        if (correctCount == secretWord.length()) {
+            System.out.println("Correct! The secret word is " + secretWord + "! You have won!");
+            System.out.println("Would you like to play again? (yes or no)");
+            playAgain = input.nextLine();
+            if (playAgain.equals("no")) {
+                System.out.println("Thanks for playing! Goodbye!");
+                playing = false;
+            }
+            if (playAgain.equals("yes")) {
+                getGameWord();
+                playerGuesses.clear();
+            }
+        }
+    }
+
 
 
 
