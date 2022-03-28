@@ -106,6 +106,7 @@ public class Hangman {
             if (playAgain.equals("yes")) {
                 getGameWord();
                 playerGuesses.clear();
+                missedLetters.clear();
             }
         }
     }
